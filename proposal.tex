@@ -12,44 +12,47 @@
 \begin{document}
 %%% Header starts
 \noindent{\large\textbf{IS-521 Activity Proposal}\hfill
-                \textbf{Your Name}} \\
-         {\phantom{} \hfill \textbf{GitHub ID}} \\
+                \textbf{Na, Yun Seok}} \\
+         {\phantom{} \hfill \textbf{alinghi}} \\
          {\phantom{} \hfill Due Date: April 15, 2017} \\
 %%% Header ends
 
 \section{Activity Overview}
-
-Briefly describe what this activity is about, and \emph{why} you are
-proposing this activity. (활동에 대한 간략한 설명과 왜 이 활동을
-제안하는지에 대한 이유를 서술.)
+IS-521에서는 주로 Shell, C, Network Programming 위주의 수업과 과제를 진행하였습니다.
+몇몇 학생들은 석사 첫 학기에 암호학에 대해서 처음 배웠을 것이고 익숙하지 않을 것이라 생각합니다.
+그래서 DES를 구현해보고 single-DES 케이스에서 Brute-Force를 통해서 키를 찾는 분산 시스템 프로그램을 만들어 보고자 합니다.
 
 \section{Exercises}
+\begin{exercise} Implementation of DES
+\newline
+먼저 첫 번째 exercise에서 학생들은 DES를 구현하게 됩니다.
+\end{exercise}
 
-Describe a series of exercises that students will carry out. (학생들이 하게
-될 연습문제를 순차적으로 서술.)
+\begin{exercise} Implementation of distribute Brute-Force program
+\newline
+두 번째 exercise는 Brute-Force 공격을 하는 분산 시스템을 만드는 것입니다.
+이 프로그램에 암호문을 넣으면 ASCII Character의 영어 대문자, 영어 소문자, Line Feed 등이 계속 반복되는 평문을 찾을 때 까지 Brute-Force 공격을 진행합니다. 평문과 암호문이 모두 주어진 경우에는 첫 64 bits만 검사하도록 합니다. 그 후 찾은 key값이 전체 평문과 암호문에 적용 되면 프로그램을 종료하고 아닐 경우 계속 진행하도록 합니다.
 
-\begin{exercise}
+프로그램은 서버와 클라이언트로 나누어 집니다. 먼저 각 프로그램의 역할은, 서버는 클라이언트에게 연산을 하게 될 키를 나누어 주게 되고 클라이언트의 결과를 검증하는 역할을 합니다. 클라이언트는 서버에서 받은 키의 범위로 decrypt를 시도하고 ASCII Character 형태의 평문이 나오면 Key값을 서버에 반환합니다.
 
-  In this exercise, you do ...
+이후, 서버는 클라이언트가 답을 찾았다고 return을 하게되면 그 것이 진짜 키인지 다시 decrypt를 시도하고 맞으면 결과를 출력하고 종료합니다. 또한 클라이언트가 이유 없이 죽을 수 있기 때문에 특정 시간이 지날때마다 중간 결과를 보고 받도록 합니다. 클라이언트가 중간 결과를 보고하지 않을 경우 서버는 그 클라이언트의 계산 결과를 신뢰하지 않고 할당 했던 키 값 범위를 다른 클라이언트에게 할당합니다.
+
 
 \end{exercise}
 
-\begin{exercise}
-
-  In this exercise, you do ...
-
-\end{exercise}
-
-\begin{exercise}
-
-  In this exercise, you do ...
+\begin{exercise} Additional Exercise if needed.
+\newline
+위에 언급한 Exercise가 작다고 생각하면 아래의 Exercise를 추가하는 것을 제안합니다.
+\begin{itemize}
+\item 빠르게 연산을 진행시켜 보고 싶거나 AWS(Amazon) 활용 능력이 부족할 경우 AWS EC2를 클라이언트로 사용해 본다. 1시간에 1000원 정도면 현재 대부분의 학생이 사용하고 있는 랩탑보다 훨씬 빠른 성능의 연산이 가능하기 때문 입니다.
+\item Dobule-DES 케이스에 대해서 Meet-in-the-Middle Attack을 하는 프로그램을 작성
+\item Decrypt 결과가 특정 파일의 헤더 형태이면 키 값을 반환하는 프로그램을 작성.
+\end{itemize}
 
 \end{exercise}
 
 \section{Expected Solutions}
-
-Put expected solutions here.
-(예상되는 답안에 대해서 서술.)
+서버 프로그램 1개와 클라이언트 프로그램 1개가 기대하는 솔루션 입니다.
 
 \bibliography{references}
 \bibliographystyle{plainnat}
